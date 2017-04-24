@@ -1,0 +1,2 @@
+# Hrutar
+Fyrir Hrúta spilið
