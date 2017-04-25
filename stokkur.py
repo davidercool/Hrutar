@@ -1,3 +1,4 @@
+from Hrutar.blib import indexOfNth
 from Hrutar.hrutar import *
 stdstokk = []
 with open("Hrutar.txt", "r") as f:
