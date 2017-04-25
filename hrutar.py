@@ -1,16 +1,16 @@
 from enum import Enum
 
 class prop(Enum):
-    nafn = 0
-    stad = 1
-    kilo = 2
-    mjolk = 3
-    ull = 4
-    afk = 5
-    leg = 6
-    frjo = 7
-    bak = 8
-    mal = 9
+    nafn = -1
+    stad = 0
+    kilo = 1
+    mjolk = 2
+    ull = 3
+    afk = 4
+    leg = 5
+    frjo = 6
+    bak = 7
+    mal = 8
 
 class hrutur:
     def __init__(self, nafn, stad, kilos, mjolk, ull, afk, leg, frjo, bak, mal):
@@ -27,6 +27,8 @@ class hrutur:
         self.__props[prop.mal] = mal
     def property(self, PROP):
         return self.__props[PROP]
+    def setProp(self, PROP, newVal):
+        self.__props[PROP] = newVal
     def battle(self, other, PROP):
         return ("Vann" if self.__props[PROP] > other.property(PROP) else "Tap") if self.__props[PROP] != other.property(PROP) else "Jafn"
     def __repr__(self):
