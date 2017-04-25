@@ -6,6 +6,11 @@ COPYRIGHT: BENEDIKT ARON SIGURÞÓRSSON
 
 '''
 from BTYPE import *
+from enum import Enum
+
+class ANS(Enum):
+    yes = 0
+    no = 1
 
 def indexOfNth(container, elem = " ", nth = 1):
     if nth == 0:

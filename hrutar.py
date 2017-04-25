@@ -33,3 +33,4 @@ class hrutur:
         return ("Vann" if self.__props[PROP] > other.property(PROP) else "Tap") if self.__props[PROP] != other.property(PROP) else "Jafn"
     def __repr__(self):
         return self.__props[prop.nafn] + " af " + self.__props[prop.stad]
+    __str__ = __repr__

@@ -24,6 +24,7 @@ with open("Hrutar.txt", "r") as f:
             ))
 
 def makeStokk(lengd):
+    nameCount = 0
     # Býr til nýjann stokk útfrá lengd sem er gefin
     newStokk = []
     for x in range(lengd):
@@ -44,10 +45,14 @@ def makeStokk(lengd):
             "L"
         ]
         shuffle(dist)
-
+        nafn = choice(nofn)
+        stadur = choice(stadir)
+        if nafn + ";" + stadur in open("Hrutar.txt").read() or nafn + " af " + stadur in [str(y) for y in newStokk]:
+            nameCount += 1
+            nafn += str(nameCount)
         newStokk.append(hrutur(
-            choice(nofn),
-            choice(stadir),
+            nafn,
+            stadur,
             ((randint(38, 44) if dist[0] == "L" else randint(45, 49)) if dist[0] != "G" else randint(50, 56)) if dist[0] != "MG" else randint(57, 86),
             ((randint(82, 98) if dist[0] == "L" else randint(99, 104)) if dist[0] != "G" else randint(105, 109)) if dist[0] != "MG" else randint(110, 121),
             ((randint(7, 74) / 10 if dist[0] == "L" else randint(75, 80) / 10) if dist[0] != "G" else randint(81, 84) / 10) if dist[0] != "MG" else randint(85, 88) / 10,
