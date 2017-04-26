@@ -5,7 +5,6 @@ COPYRIGHT: BENEDIKT ARON SIGURÞÓRSSON
 ÞETTA SKJAL INNIHELDUR FÖLL SEM BENEDIKT A. SIGURÞÓRSSON BJÓ TIL
 
 '''
-from BTYPE import *
 from enum import Enum
 
 class ANS(Enum):

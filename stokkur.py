@@ -25,7 +25,6 @@ with open("Hrutar.txt", "r") as f:
 
 def makeStokk(lengd):
     nameCount = 0
-    # Býr til nýjann stokk útfrá lengd sem er gefin
     newStokk = []
     for x in range(lengd):
         '''
