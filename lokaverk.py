@@ -24,6 +24,7 @@ while val1 != "4":  # Meðan notandi vill ekki hætta
             except ValueError:  # Ef svarið var ekki talan 1 eða 2 (eða ef það var ekki tala)
                 temp = input("' " + temp + " ' Var ekki valkostur!\nReyndu aftur\n")  # Vill notandinn nota eitthvað frá stdstokk
         if stdInclude == ANS.yes:  # Ef svarið var já
+            shuffle(stdstokk)
             if stokklen < 52:  # Ef stokklengd er minna en 52
                 stokk = stdstokk[0: stokklen]  # stillir stokkinn
             elif stokklen > 52:  # Ef stokklengd er stærri en 52
@@ -35,7 +36,7 @@ while val1 != "4":  # Meðan notandi vill ekki hætta
     else:  # Ef ekki var sýnt reglurnar þá má byrja leikinn
         #computs = 2  # Placeholder fyrir jafnteflis tests
         #stokklen = 27  # Placeholder fyrir jafnteflis tests
-        #stokk = [hrutur("petur" + str(x), "Magasvið" + str(x), 10, 10, 10, 10, 10, 10, 10, 10) for x in range(25)] + [hrutur("lol", "I win", 11, 11, 11, 11, 11, 11, 11, 11)]  # Placeholder fyrir jafnteflis tests
+        #stokk = [hrutur("petur" + str(x), "Magasvið" + str(x), 10, 10, 10, 10, 10, 10, 10, 10) for x in range(25)] + [hrutur("lol", "I win", 9, 9, 9, 9, 9, 9, 9, 9)]  # Placeholder fyrir jafnteflis tests
         #stokklen = 6  # Placeholder fyrir jafnteflis tests
         #stokk = stokk[20:]  # Placeholder fyrir jafnteflis tests
         nafn = input("Hvað heitir þú\n")  # Nafn notanda
@@ -68,14 +69,14 @@ while val1 != "4":  # Meðan notandi vill ekki hætta
             played = []  # breyta sem heldur um spilin sem hafa verið spiluð þessa umferð
             if players[int(turn)].type() == playerType.user:  # Ef notandi á að gera
                 print("Þú átt að gera!\nSpilið sem þú drógst er:\n\t\t" + str(players[0].stokk()[0]))  # Valmynd
-                print("\t1: Þyngd í kílóum" + (" " * (22 - len("1: Þyngd í kílóum"))) + str(players[0].stokk()[0].property(prop.kilo)))  # Valmynd
-                print("\t2: Mjólkurlagni dætra" + (" " * (22 - len("2: Mjólkurlagni dætra"))) + str(players[0].stokk()[0].property(prop.mjolk)))  # Valmynd
-                print("\t3: Einkunn ullar" + (" " * (22 - len("3: Einkunn ullar"))) + str(players[0].stokk()[0].property(prop.ull)))  # Valmynd
-                print("\t4: Fjöldi afkvæma" + (" " * (22 - len("4: Fjöldi afkvæma"))) + str(players[0].stokk()[0].property(prop.afk)))  # Valmynd
-                print("\t5: Einkunn læris" + (" " * (22 - len("5: Einkunn læris"))) + str(players[0].stokk()[0].property(prop.leg)))  # Valmynd
-                print("\t6: Frjósemi" + (" " * (22 - len("6: Frjósemi"))) + str(players[0].stokk()[0].property(prop.frjo)))  # Valmynd
-                print("\t7: Gerð/þykkt bakvöðva" + (" " * (22 - len("6: Gerð/þykkt bakvöðva"))) + str(players[0].stokk()[0].property(prop.bak)))  # Valmynd
-                print("\t8: Einkunn fyrir malir" + (" " * (22 - len("7: Einkunn fyrir malir"))) + str(players[0].stokk()[0].property(prop.mal)))  # Valmynd
+                print("\t1: Þyngd í kílóum" + (" " * (25 - len("1: Þyngd í kílóum"))) + str(players[0].stokk()[0].property(prop.kilo)))  # Valmynd
+                print("\t2: Mjólkurlagni dætra" + (" " * (25 - len("2: Mjólkurlagni dætra"))) + str(players[0].stokk()[0].property(prop.mjolk)))  # Valmynd
+                print("\t3: Einkunn ullar" + (" " * (25 - len("3: Einkunn ullar"))) + str(players[0].stokk()[0].property(prop.ull)))  # Valmynd
+                print("\t4: Fjöldi afkvæma" + (" " * (25 - len("4: Fjöldi afkvæma"))) + str(players[0].stokk()[0].property(prop.afk)))  # Valmynd
+                print("\t5: Einkunn læris" + (" " * (25 - len("5: Einkunn læris"))) + str(players[0].stokk()[0].property(prop.leg)))  # Valmynd
+                print("\t6: Frjósemi" + (" " * (25 - len("6: Frjósemi"))) + str(players[0].stokk()[0].property(prop.frjo)))  # Valmynd
+                print("\t7: Gerð/þykkt bakvöðva" + (" " * (25 - len("6: Gerð/þykkt bakvöðva"))) + str(players[0].stokk()[0].property(prop.bak)))  # Valmynd
+                print("\t8: Einkunn fyrir malir" + (" " * (25 - len("7: Einkunn fyrir malir"))) + str(players[0].stokk()[0].property(prop.mal)))  # Valmynd
                 temp = input("Hverju villt þú keppa í?\n")  # Tekur inn valkost
                 while True:  # Meðan valkostur er rangur
                     try:  # Reyndu að stilla valkost
@@ -84,11 +85,29 @@ while val1 != "4":  # Meðan notandi vill ekki hætta
                     except ValueError:  # Ef valkostur var í boði
                         temp = input("' " + temp + " ' Var ekki valkostur!\nReyndu aftur\n")  # Tekur inn valkost
             else:  # Ef tölvan á að gera
-                print(players[int(turn)], "á að gera")  # Á eftir að bæta þessum part
-                battleOn = prop(randint(1, 8))
-
-
-
+                print(players[int(turn)], "á að gera")
+                if diffi == diff.easy:
+                    fits = []
+                    for x in list(propNames.keys())[2:]:
+                        fits.append((players[int(turn)].stokk()[0].property(x) * 100) / propTops[x])
+                    battleOn = prop(fits.index(min(fits)) + 1)
+                elif diffi == diff.normal:
+                    battleOn = prop(randint(1, 8))
+                elif diffi == diff.advanced:
+                    fits = []
+                    for x in list(propNames.keys())[2:]:
+                        fits.append((players[int(turn)].stokk()[0].property(x) * 100) / propTops[x])
+                    fitsCop = copy.copy(fits)
+                    tops = []
+                    for x in range(4):
+                        tops.append(max(fitsCop))
+                        del fitsCop[fitsCop.index(tops[-1])]
+                    battleOn = prop(fits.index(choice(tops)) + 1)
+                elif diffi == diff.hard:
+                    fits = []
+                    for x in list(propNames.keys())[2:]:
+                        fits.append((players[int(turn)].stokk()[0].property(x) * 100) / propTops[x])
+                    battleOn = prop(fits.index(max(fits)) + 1)
             print("Það er keppt í", propNames[battleOn])
             for x in players:  # Allir leikmenn
                 if x.playing():  # Ef leimaður tekur þátt í þessari umferð
@@ -137,14 +156,13 @@ while val1 != "4":  # Meðan notandi vill ekki hætta
                                             temp = input("' " + temp + " ' Var ekki valkostur!\nReyndu aftur\n")  # Tekur inn valkost
                                 else:  # Ef x spilið er tölva
                                     x.owner().RPS(RPS(randint(0, 2)))  # Velur Skæri, blað eða stein að handahófi
-                                print(best.owner().RPS().name, "vs",
-                                      x.owner().RPS().name)  # Hverjir eru að keppa í skæri blað stein
+                                print(best.owner(), best.owner().RPS().name, "vs", x.owner(), x.owner().RPS().name)  # Hverjir eru að keppa í skæri blað stein
                                 if cNum(0, 2, best.owner().RPS().value) - 1 == cNum(0, 2, x.owner().RPS().value):  # Ef best vinnur
-                                    # x.owner().lost(True)
+                                    print(best.owner(), "vann skæri blað stein")
                                     jafn = False  # Er ekki jafntefli
                                     break  # Hætta að spila skæri blað steinn
                                 elif cNum(0, 2, best.owner().RPS().value) + 1 == cNum(0, 2, x.owner().RPS().value):  # Ef best tapar
-                                    # best.owner().lost(True)
+                                    print(x.owner(), "vann skæri blað stein")
                                     best = x  # Besta spilið er núna x
                                     jafn = False  # Er ekki jafntefli
                                     break  # Hætta að spila skæri blað steinn
@@ -157,76 +175,6 @@ while val1 != "4":  # Meðan notandi vill ekki hætta
                     if not x.jafn():  # Ef leikmaður fékk ekki jafntefli
                         x.playing(False)  # Leikmaður tekur ekki þátt í næstu umferð
                 print("Jafntefli!")
-            '''while jafn and len(players) > 1:  # Meðan það er jafntefli og fleiri en einn leikmaður eftir í leiknum
-                #turn += 1
-                print("in")  # Temp
-                played = []  # Öll spil sem hafa verið spiluð
-                if players[int(turn)].jafn():  # Ef leikmaður er í jafntefli
-                    if players[int(turn)].type() == playerType.user and len(players[int(turn)].stokk()) > 0:
-                        # Notandi á að gera
-                        print("Þú átt að gera!\nSpilið sem þú drógst er:\n\t\t" + str(players[0].stokk()[0]))  # Valmynd
-                        print("\t1: Þyngd í kílóum" + (" " * (22 - len("1: Þyngd í kílóum"))) + str(players[0].stokk()[0].property(prop.kilo)))  # Valmynd
-                        print("\t2: Mjólkurlagni dætra" + (" " * (22 - len("2: Mjólkurlagni dætra"))) + str(players[0].stokk()[0].property(prop.mjolk)))  # Valmynd
-                        print("\t3: Einkunn ullar" + (" " * (22 - len("3: Einkunn ullar"))) + str(players[0].stokk()[0].property(prop.ull)))  # Valmynd
-                        print("\t4: Fjöldi afkvæma" + (" " * (22 - len("4: Fjöldi afkvæma"))) + str(players[0].stokk()[0].property(prop.afk)))  # Valmynd
-                        print("\t5: Einkunn læris" + (" " * (22 - len("5: Einkunn læris"))) + str(players[0].stokk()[0].property(prop.leg)))  # Valmynd
-                        print("\t6: Frjósemi" + (" " * (22 - len("6: Frjósemi"))) + str(players[0].stokk()[0].property(prop.frjo)))  # Valmynd
-                        print("\t7: Gerð/þykkt bakvöðva" + (" " * (22 - len("6: Gerð/þykkt bakvöðva"))) + str(players[0].stokk()[0].property(prop.bak)))  # Valmynd
-                        print("\t8: Einkunn fyrir malir" + (" " * (22 - len("7: Einkunn fyrir malir"))) + str(players[0].stokk()[0].property(prop.mal)))  # Valmynd
-                        temp = input("Hverju villt þú keppa í?\n")  # Tekur inn valkost
-                        while True:
-                            try:
-                                battleOn = prop(int(temp))
-                                break
-                            except ValueError:
-                                temp = input("' " + temp + " ' Var ekki valkostur!\nReyndu aftur\n")
-                        for x in players:
-                            if x.jafn() and len(x.stokk()) > 0:
-                                print(x, "spilar:\n\t" + str(x.stokk()[0]) + "\n\t" + battleOn.name + "\t" + str(x.stokk()[0].property(battleOn)))
-                                played.append(x.draw())
-                            elif len(x.stokk()) == 0:
-                                x.lost(True)
-                                input(str(x) + " has no stokk left")
-                    elif players[int(turn)].type() == playerType.user and len(players[int(turn)].stokk()) == 0:
-                        players[int(turn)].lost(True)
-                        input(str(players[int(turn)]) + " has no stokk left")
-                    else:
-                        print("Tölvan á að gera")
-                if len(played) > 0:
-                    best = played[0]
-                    for x in played:
-                        if best.battle(x, battleOn) == "Tap":
-                            jafn = False
-                            best.owner().jafn(False)
-                            x.owner().jafn(False)
-                            best = x
-                        elif best.battle(x, battleOn) == "Vann":
-                            jafn = False
-                            best.owner().jafn(False)
-                            x.owner().jafn(False)
-                        pool.append(x)
-                    for x in played:
-                        if best != x:
-                            if best.battle(x, battleOn) == "Jafn":
-                                # gera eitthvað ef jafntefli
-                                jafn = True
-                                best.owner().jafn(True, x.owner())
-                                x.owner().jafn(True, best.owner())
-                for x in copy.copy(pool):
-                    if len(best.owner().stokk()) == 0 or len(x.owner().stokk()) == 0:
-                        temp = input("Jafrntefli á síðasta spili")
-                        while True:
-                            while True:
-                                try:
-                                    battleOn = prop(int(temp))
-                                    break
-                                except ValueError:
-                                    temp = input("' " + temp + " ' Var ekki valkostur!\nReyndu aftur\n")
-                for x, elem in enumerate(players):
-                    if elem.lost():
-                        print(elem, "lost")
-                        del players[x]
-                    print(players)'''
             if not jafn:  # Ef það er ekki jafntefli
                 print(best.owner(), "vann umferðina")  # Prenta eiganda sigursspilssins (prenta sigurvegara)
                 best.owner().vann(pool)  # Setja spila pottinn í stokk sigurvegarans
@@ -236,16 +184,19 @@ while val1 != "4":  # Meðan notandi vill ekki hætta
                     #print(x, x.stokk())  # Prenta nafn og stokk leimanns
             for x in players:  # Allir leikmenn
                 if len(x.stokk()) == 0:  # Ef stokkur leikmanns er tómur
-                    x.lost(True)  # Leimaður tapaði
+                    x.lost(True)  # Leikmaður tapaði
+            toRemove = []
             for x, elem in enumerate(players):  # Allir leikmenn
                 if elem.lost():  # Ef leikmaður er búinn að tapa
                     if elem.type() == playerType.user:
                         lost = True
                         break
-                    print(elem, "datt út")  # Prenta leikmann sem tapaði
-                    del players[x]  # Eyða viðeygandi leikmanni frá leikmanna listanum
-                    print(len(players), "leikmenn eftir")
-                    turn = cNum(turn.min(), turn.max() - 1, int(turn))
+                    turn = cNum(turn.min(), turn.max() - 1, int(turn) + (-1 if int(turn) >= players.index(elem) else 0))
+                    toRemove.append(elem)  # Bæta leikmanni í eyðslulista
+            for x in toRemove:
+                print(x, "datt út")  # Prenta leikmann sem tapaði
+                del players[players.index(x)]  # Eyða viðeygandi leikmanni frá leikmanna listanum
+                print(len(players), "leikmenn eftir")
             if lost:
                 print("Þú tapaðir!")
                 break
@@ -258,12 +209,3 @@ while val1 != "4":  # Meðan notandi vill ekki hætta
         input("Ýttu á 'enter' til þess að byrja!")  # Temp
     val1 = input("Hvað má bjóða þér að gera?\n1: Spila með venjulegum reglum?\n2: Spila með sérhönnuðum reglum?\n3: Sjá reglurnar\n4: Hætta að spila?\n")  # Valmynd
 print("Takk fyrir að spila :)\nLove David (Daddy) Bjarki og Benedikt (Librarian) Aron")  # Prenta þökkunar skilaboð ef er hætt í leiknum
-'''
-    temp = input("Hverju viltu keppa í?\nInsert numbered option list here\n")
-        while True:
-            try:
-                players[0].stokkur()[0].battle(players[1].stokkur()[0], prop(int(temp)))
-                break
-            except ValueError:
-                temp = input("' " + temp + " ' Var ekki valkostur!\nReyndu aftur\n")
-'''

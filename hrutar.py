@@ -25,6 +25,8 @@ class prop(Enum):
 
 propNames = {prop.nafn: "Nafn", prop.stad: "Staðsetning", prop.kilo: "Þyngd í kílóum", prop.mjolk: "Mjólkurlagni dætra", prop.ull: "Einkunn ullar", prop.afk: "Fjöldi afkvæma", prop.leg: "Einkunn læris", prop.frjo: "Frjósemi", prop.bak: "Gerð/þykkt bakvöðva", prop.mal: "Einkunn fyrir malir"}
 
+propTops = {prop.nafn: None, prop.stad: None, prop.kilo: 86, prop.mjolk: 121, prop.ull: 8.8, prop.afk: 1500, prop.leg: 18.5, prop.frjo: 135, prop.bak: 150, prop.mal: 9.2}
+
 class Player:
     def __init__(self, nafn, Stokk, type):
         self.__nafn = nafn

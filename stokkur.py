@@ -55,7 +55,7 @@ def makeStokk(lengd):
             ((randint(38, 44) if dist[0] == "L" else randint(45, 49)) if dist[0] != "G" else randint(50, 56)) if dist[0] != "MG" else randint(57, 86),
             ((randint(82, 98) if dist[0] == "L" else randint(99, 104)) if dist[0] != "G" else randint(105, 109)) if dist[0] != "MG" else randint(110, 121),
             ((randint(7, 74) / 10 if dist[0] == "L" else randint(75, 80) / 10) if dist[0] != "G" else randint(81, 84) / 10) if dist[0] != "MG" else randint(85, 88) / 10,
-            ((randint(0, randint(0, 100)) if dist[0] == "L" else randint(101, 250)) if dist[0] != "G" else randint(251, 450)) if dist[0] != "MG" else randint(451, 1400),
+            ((randint(0, randint(0, 100)) if dist[0] == "L" else randint(101, 250)) if dist[0] != "G" else randint(251, 450)) if dist[0] != "MG" else randint(451, 1500),
             ((randint(160, 169) / 10 if dist[0] == "L" else randint(170, 175) / 10) if dist[0] != "G" else randint(176, 179) / 10) if dist[0] != "MG" else randint(180, 185) / 10,
             ((randint(95, 105) if dist[0] == "L" else randint(106, 112)) if dist[0] != "G" else randint(113, 120)) if dist[0] != "MG" else randint(121, 135),
             ((randint(90, 109) if dist[0] == "L" else randint(110, 121)) if dist[0] != "G" else randint(122, 130)) if dist[0] != "MG" else randint(131, 150),
