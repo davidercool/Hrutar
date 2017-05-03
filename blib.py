@@ -11,6 +11,11 @@ class ANS(Enum):
     yes = 0
     no = 1
 
+class RPS(Enum):
+    Steinn = 0
+    Blad = 1
+    Skaeri = 2
+
 def indexOfNth(container, elem = " ", nth = 1):
     if nth == 0:
         return 0
