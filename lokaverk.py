@@ -24,7 +24,7 @@ while val1 != "4":  # Meðan notandi vill ekki hætta
             except ValueError:  # Ef svarið var ekki talan 1 eða 2 (eða ef það var ekki tala)
                 temp = input("' " + temp + " ' Var ekki valkostur!\nReyndu aftur\n")  # Vill notandinn nota eitthvað frá stdstokk
         if stdInclude == ANS.yes:  # Ef svarið var já
-            shuffle(stdstokk)
+            shuffle(stdstokk)  # Stokkar stokknum
             if stokklen < 52:  # Ef stokklengd er minna en 52
                 stokk = stdstokk[0: stokklen]  # stillir stokkinn
             elif stokklen > 52:  # Ef stokklengd er stærri en 52
@@ -85,30 +85,30 @@ while val1 != "4":  # Meðan notandi vill ekki hætta
                     except ValueError:  # Ef valkostur var í boði
                         temp = input("' " + temp + " ' Var ekki valkostur!\nReyndu aftur\n")  # Tekur inn valkost
             else:  # Ef tölvan á að gera
-                print(players[int(turn)], "á að gera")
-                if diffi == diff.easy:
-                    fits = []
-                    for x in list(propNames.keys())[2:]:
-                        fits.append((players[int(turn)].stokk()[0].property(x) * 100) / propTops[x])
-                    battleOn = prop(fits.index(min(fits)) + 1)
-                elif diffi == diff.normal:
-                    battleOn = prop(randint(1, 8))
-                elif diffi == diff.advanced:
-                    fits = []
-                    for x in list(propNames.keys())[2:]:
-                        fits.append((players[int(turn)].stokk()[0].property(x) * 100) / propTops[x])
-                    fitsCop = copy.copy(fits)
-                    tops = []
-                    for x in range(4):
-                        tops.append(max(fitsCop))
-                        del fitsCop[fitsCop.index(tops[-1])]
-                    battleOn = prop(fits.index(choice(tops)) + 1)
-                elif diffi == diff.hard:
-                    fits = []
-                    for x in list(propNames.keys())[2:]:
-                        fits.append((players[int(turn)].stokk()[0].property(x) * 100) / propTops[x])
-                    battleOn = prop(fits.index(max(fits)) + 1)
-            print("Það er keppt í", propNames[battleOn])
+                print(players[int(turn)], "á að gera")  # Prentar hvaða tölva á að gera
+                if diffi == diff.easy:  # Ef notandi valdi létt erfiðleikastig
+                    fits = []  # Listi sem heldur um fitness allra eiginleika spilsins sem að tölvan dróg
+                    for x in list(propNames.keys())[2:]:  # Öll props
+                        fits.append((players[int(turn)].stokk()[0].property(x) * 100) / propTops[x])  # Bætir hversu há prósenta eiginleikin er af hæsta mögulega gildi þess eiginleika
+                    battleOn = prop(fits.index(min(fits)) + 1)  # Velur eiginleikan með lægsta fitnessið
+                elif diffi == diff.normal:  # Ef notandi valdi venjulegt erfiðleikastig
+                    battleOn = prop(randint(1, 8))  # Velur eiginleika af handahófi
+                elif diffi == diff.advanced:  # Ef notandi valdi venjulegt erfiðleikastig
+                    fits = []  # Listi sem heldur um fitness allra eiginleika spilsins sem að tölvan dróg
+                    for x in list(propNames.keys())[2:]:  # Öll props
+                        fits.append((players[int(turn)].stokk()[0].property(x) * 100) / propTops[x])  # Bætir hversu há prósenta eiginleikin er af hæsta mögulega gildi þess eiginleika
+                    fitsCop = copy.copy(fits)  # Býr til shallow copy af fits listanum
+                    tops = []  # Listi sem á að halda um top 4 bestu eiginleikana
+                    for x in range(4):  # For lykkja sem keyrir 4 sinnum
+                        tops.append(max(fitsCop))  # Bætir besta eiginleika úr copylistanum
+                        del fitsCop[fitsCop.index(tops[-1])]  # Eyður besta eiginleika úr copy listanum
+                    battleOn = prop(fits.index(choice(tops)) + 1)  # Velur eiginleika úr 4 bestu af handahófi
+                elif diffi == diff.hard:  # Ef notandi valdi erfitt erfiðleikastig
+                    fits = []  # Listi sem heldur um fitness allra eiginleika spilsins sem að tölvan dróg
+                    for x in list(propNames.keys())[2:]:  # Öll props
+                        fits.append((players[int(turn)].stokk()[0].property(x) * 100) / propTops[x])  # Bætir hversu há prósenta eiginleikin er af hæsta mögulega gildi þess eiginleika
+                    battleOn = prop(fits.index(max(fits)) + 1)  # Velur besta eiginleikan
+            print("Það er keppt í", propNames[battleOn])  # Prentar hverju er keppt í
             for x in players:  # Allir leikmenn
                 if x.playing():  # Ef leimaður tekur þátt í þessari umferð
                     print(x, "spilar:\n\t" + str(x.stokk()[0]) + "\n\t" + battleOn.name + "\t" + str(x.stokk()[0].property(battleOn)))  # Prentar spilið sem verður spilað af gefnum leikmanni
@@ -133,8 +133,7 @@ while val1 != "4":  # Meðan notandi vill ekki hætta
                         jafn = True  # Er jafntefli
                         best.owner().jafn(True)  # Stillir jafnteflis eiginleika eignda besta spilsins
                         x.owner().jafn(True)  # Stillir jafnteflis eiginleika eignda besta spilsins
-                        if len(best.owner().stokk()) == 0 or len(
-                                x.owner().stokk()) == 0:  # Ef það er jafntefli á síðasta spili í stokk
+                        if len(best.owner().stokk()) == 0 or len(x.owner().stokk()) == 0:  # Ef það er jafntefli á síðasta spili í stokk
                             while True:  # Meðan það er jafntefli í skæri blað steinn
                                 if best.owner().type() == playerType.user:  # Ef besta spilið er notandinn
                                     temp = input("Jafntefli á síðasta spili leikmans!\nÞarf að keppa í skæri blað steinn við hvort annað!\n\t1: Steinn?\n\t2: Blað?\n\t3: Skæri?\n")  # Tekur inn valkost
@@ -158,23 +157,23 @@ while val1 != "4":  # Meðan notandi vill ekki hætta
                                     x.owner().RPS(RPS(randint(0, 2)))  # Velur Skæri, blað eða stein að handahófi
                                 print(best.owner(), best.owner().RPS().name, "vs", x.owner(), x.owner().RPS().name)  # Hverjir eru að keppa í skæri blað stein
                                 if cNum(0, 2, best.owner().RPS().value) - 1 == cNum(0, 2, x.owner().RPS().value):  # Ef best vinnur
-                                    print(best.owner(), "vann skæri blað stein")
+                                    print(best.owner(), "vann skæri blað stein")  # Prentar hver vann skæri blað stein
                                     jafn = False  # Er ekki jafntefli
                                     break  # Hætta að spila skæri blað steinn
                                 elif cNum(0, 2, best.owner().RPS().value) + 1 == cNum(0, 2, x.owner().RPS().value):  # Ef best tapar
-                                    print(x.owner(), "vann skæri blað stein")
+                                    print(x.owner(), "vann skæri blað stein")  # Prentar hver vann skæri blað stein
                                     best = x  # Besta spilið er núna x
                                     jafn = False  # Er ekki jafntefli
                                     break  # Hætta að spila skæri blað steinn
                                 elif cNum(0, 2, best.owner().RPS().value) == cNum(0, 2, x.owner().RPS().value):  # Ef það er jafntefli
-                                    print("Jafntefli!")
+                                    print("Jafntefli!")  # Prentar að það sé jafntefli
                                 else:  # Ef ekkert að ofan gerist
-                                    input("Eitthvað fór úrskeyðis")  # Kóðinn ætti að geta komist hingað
+                                    input("Eitthvað fór úrskeyðis")  # Kóðinn ætti ekki að geta komist hingað
             if jafn:  # Ef það er jafntefli
                 for x in players:  # Allir leikmenn
                     if not x.jafn():  # Ef leikmaður fékk ekki jafntefli
                         x.playing(False)  # Leikmaður tekur ekki þátt í næstu umferð
-                print("Jafntefli!")
+                print("Jafntefli!")  # Prentar að það var jafntefli
             if not jafn:  # Ef það er ekki jafntefli
                 print(best.owner(), "vann umferðina")  # Prenta eiganda sigursspilssins (prenta sigurvegara)
                 best.owner().vann(pool)  # Setja spila pottinn í stokk sigurvegarans
@@ -185,13 +184,17 @@ while val1 != "4":  # Meðan notandi vill ekki hætta
             for x in players:  # Allir leikmenn
                 if len(x.stokk()) == 0:  # Ef stokkur leikmanns er tómur
                     x.lost(True)  # Leikmaður tapaði
-            toRemove = []
+            toRemove = []  # Listi af leikmönnum sem á að eyða
             for x, elem in enumerate(players):  # Allir leikmenn
                 if elem.lost():  # Ef leikmaður er búinn að tapa
-                    if elem.type() == playerType.user:
-                        lost = True
-                        break
-                    turn = cNum(turn.min(), turn.max() - 1, int(turn) + (-1 if int(turn) >= players.index(elem) else 0))
+                    if elem.type() == playerType.user:  # Ef notandi tapaði
+                        lost = True  # Maður hefur tapað
+                        break  # Fara út úr for lykkjunni
+                    if players.index(elem) > turn:  # Endurstilling cNumsins
+                        turn = cNum(0, turn.max() - 1, turn)  # Endurstilling cNumsins
+                    elif players.index(elem) <= turn:  # Endurstilling cNumsins
+                        turn = cNum(0, turn.max() - 1, turn - 1)  # Endurstilling cNumsins
+                    #print(turn.self())  # Endurstilling cNumsins
                     toRemove.append(elem)  # Bæta leikmanni í eyðslulista
             for x in toRemove:
                 print(x, "datt út")  # Prenta leikmann sem tapaði
