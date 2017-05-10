@@ -32,7 +32,7 @@ while val1 != "4":  # Meðan notandi vill ekki hætta
         else:  # Ef svarið var nei
             stokk = makeStokk(stokklen)  # Býr til nýjann stokk og stillir stokkinn
     if val1 == "3":  # Ef notanda vill lesa reglurnar
-        print("Eftir að setja inn reglur")  # Eftir að klára reglurnar
+        print("Markmið spilsins er að ná öllum hrútunum af andstæðingnum.\nHrútaspilin eru stokkuð og síðan deilt jafnt á þátttakendur.\nHver heldur á sínum spilum þannig að hann sér aðeins efsta hrútinn sinn og enginn sér hrút annarra.\nSá sem er á vinstri hönd gjafara byrjar spilið á því að rýna í og reyna að átta\nsig á því hverjir séu bestu eiginleikar hrútsins á spilinu hans, t.d. ull, og segir hinum.\nSá sem hefur þann hrút sem hefur hæstu einkunn fyrir ullina vinnur og fær efstu spil allra leikmanna.\nEf tveir eða fleiri eru með sömu tölu eru hrútarnir lagðir á borðið og næstu teknir eins fyrir nema nú keppa aðeins þeir sem höfðu efstu tölurnar.\nÞessu er haldið áfram þar til einn vinnur og fær hann þá alla hrútana í pottinum.\nEiginleikar hrútana eru útskýrðir með myndum.")  # Eftir að klára reglurnar
     else:  # Ef ekki var sýnt reglurnar þá má byrja leikinn
         nafn = input("Hvað heitir þú\n")  # Nafn notanda
         while True:  # Meðan nafn notanda byrjar á "comp"
