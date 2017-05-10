@@ -7,14 +7,18 @@ while val1 != "4":  # Meðan notandi vill ekki hætta
     stokklen = len(stdstokk)  # Stilla standard stokk lengd
     diffi = None  # Hvaða erfiðleik stig er á leiknum
     computs = 1  # Fjöldi tölva til að keppa á móti
+    users = 1
     players = []  # Listi af þeim sem eru að keppa
     if val1 == "2":  # Ef það var valið sérstakar reglur
+        users = int(input("Hversu margir notendur eru að spila?\n"))  # Stilla fjölda tölva
+        while users < 1:  # Meðan of fáir notendur voru valdir
+            users = int(input("Það þarf að vera að minsta kosti einn notandi!\nReyndu aftur!\n"))  # Stilla fjölda tölva
         computs = int(input("Hversu margar tölvur villtu keppa á móti?\n"))  # Stilla fjölda tölva
         while computs < 1:  # Meðan of fáar tölvur voru valdar
             computs = int(input("Það þarf að vera að minsta kosti ein tölva!\nReyndu aftur!\n"))  # Stilla fjölda tölva
         stokklen = int(input("Hversu mörg spil eiga að vera í stokkinum?\n"))  # Stilla lengd stokks
-        while stokklen % (computs + 1) != 0:  # Meðan stokklengd er ekki deilanleg með player fjölda
-            stokklen = int(input(str(stokklen) + " spila stokkur er ekki deilanlegur með " + str(computs + 1) + " leikmönnum!\nReyndu aftur!\n"))  # Stilla lengd stokks
+        while stokklen % (computs + users) != 0:  # Meðan stokklengd er ekki deilanleg með player fjölda
+            stokklen = int(input(str(stokklen) + " spila stokkur er ekki deilanlegur með " + str(computs + users) + " leikmönnum!\nReyndu aftur!\n"))  # Stilla lengd stokks
         temp = input("Villtu nota venjulegu spilin í þessum stokki?\n1: Já?\n2: Nei?\n")  # Vill notandinn nota eitthvað frá stdstokk
         stdInclude = None  # Breyta sem heldur um svarið
         while True:  # Meðan input notanda virkaði ekki
@@ -34,23 +38,24 @@ while val1 != "4":  # Meðan notandi vill ekki hætta
     if val1 == "3":  # Ef notanda vill lesa reglurnar
         print("Markmið spilsins er að ná öllum hrútunum af andstæðingnum.\nHrútaspilin eru stokkuð og síðan deilt jafnt á þátttakendur.\nHver heldur á sínum spilum þannig að hann sér aðeins efsta hrútinn sinn og enginn sér hrút annarra.\nSá sem er á vinstri hönd gjafara byrjar spilið á því að rýna í og reyna að átta\nsig á því hverjir séu bestu eiginleikar hrútsins á spilinu hans, t.d. ull, og segir hinum.\nSá sem hefur þann hrút sem hefur hæstu einkunn fyrir ullina vinnur og fær efstu spil allra leikmanna.\nEf tveir eða fleiri eru með sömu tölu eru hrútarnir lagðir á borðið og næstu teknir eins fyrir nema nú keppa aðeins þeir sem höfðu efstu tölurnar.\nÞessu er haldið áfram þar til einn vinnur og fær hann þá alla hrútana í pottinum.\nEiginleikar hrútana eru útskýrðir með myndum.")  # Eftir að klára reglurnar
     else:  # Ef ekki var sýnt reglurnar þá má byrja leikinn
-        nafn = input("Hvað heitir þú\n")  # Nafn notanda
-        while True:  # Meðan nafn notanda byrjar á "comp"
-            if len(nafn) >= 4:  # Ef lengd nafns er 4 eða hærra (þá getur nafnið byrjað á "comp")
-                if nafn.lower()[0:4] == "comp":  # Ef nafn byrjar á "comp"
-                    nafn = input("Nafnið má ekki byrja á 'comp'.\nReyndu aftur\n")  # Nafn notanda
-                else:  # Ef nafn byrjar ekki á "comp"
-                    break  # Fer út úr lykkjunni
-            else:  # Ef nafn er ekki 4 stafir eða meira
-                break  # Fer út úr lykkjunni
-        input("\nÝttu á 'enter' til þess að byrja!\n")  # Býður til að byrja
         shuffle(stokk)  # Stokkar stokkinn
-        players.append(Player(nafn, stokk[0:int(stokklen / (computs + 1))], playerType.user))  # Býr til notanda með rétt skiptum stokk
-        del stokk[0:int(stokklen / (computs + 1))]  # Eyðir spilum notanda frá stokk
+        for x in range(users):
+            nafn = (input("Hvað heitir þú\n") if users == 1 else input("Hvað heitir notandi númer " + str(x + 1) + "\n")) # Nafn notanda
+            while True:  # Meðan nafn notanda byrjar á "comp"
+                if len(nafn) >= 4:  # Ef lengd nafns er 4 eða hærra (þá getur nafnið byrjað á "comp")
+                    if nafn.lower()[0:4] == "comp":  # Ef nafn byrjar á "comp"
+                        nafn = input("Nafnið má ekki byrja á 'comp'.\nReyndu aftur\n")  # Nafn notanda
+                    else:  # Ef nafn byrjar ekki á "comp"
+                        break  # Fer út úr lykkjunni
+                else:  # Ef nafn er ekki 4 stafir eða meira
+                    break  # Fer út úr lykkjunni
+            players.append(Player(nafn, stokk[0:int(stokklen / (computs + users))], playerType.user))  # Býr til notanda með rétt skiptum stokk
+            del stokk[0:int(stokklen / (computs + users))]  # Eyðir spilum notanda frá stokk
+        input("\nÝttu á 'enter' til þess að byrja!\n")  # Býður til að byrja
         for x in range(computs):  # Fjöldi tölva
-            players.append(Player("Comp" + str(x + 1), stokk[0:int(stokklen / (computs + 1))], playerType.computer))  # Býr til tölvu með rétt skiptum stokk
-            del stokk[0:int(stokklen / (computs + 1))]  # Eyðir spilum tölvu frá stokk
-        turn = cNum(0, computs, 0)  # Býr til breytu sem segir hvaða leikmaður á að gera
+            players.append(Player("Comp" + str(x + 1), stokk[0:int(stokklen / (computs + users))], playerType.computer))  # Býr til tölvu með rétt skiptum stokk
+            del stokk[0:int(stokklen / (computs + users))]  # Eyðir spilum tölvu frá stokk
+        turn = cNum(0, computs + users - 1, 0)  # Býr til breytu sem segir hvaða leikmaður á að gera
         temp = input("Hvaða erfiðleikastig villt þú spila með?\n1: Létt?\n2: Venjulegt?\n3: krefjandi?\n4: Erfitt?\n")  # Stillir erfiðleika stig
         while True:  # Meðan rangt erfiðleikstig er valið
             try:  # Reyndu að stilla svarið
@@ -70,15 +75,15 @@ while val1 != "4":  # Meðan notandi vill ekki hætta
                 skip = True
             if not skip:
                 if players[int(turn)].type() == playerType.user:  # Ef notandi á að gera
-                    print("Þú átt að gera!\nSpilið sem þú drógst er:\n\t\t" + str(players[0].stokk()[0]))  # Valmynd
-                    print("\t1: Þyngd í kílóum" + (" " * (25 - len("1: Þyngd í kílóum"))) + str(players[0].stokk()[0].property(prop.kilo)))  # Valmynd
-                    print("\t2: Mjólkurlagni dætra" + (" " * (25 - len("2: Mjólkurlagni dætra"))) + str(players[0].stokk()[0].property(prop.mjolk)))  # Valmynd
-                    print("\t3: Einkunn ullar" + (" " * (25 - len("3: Einkunn ullar"))) + str(players[0].stokk()[0].property(prop.ull)))  # Valmynd
-                    print("\t4: Fjöldi afkvæma" + (" " * (25 - len("4: Fjöldi afkvæma"))) + str(players[0].stokk()[0].property(prop.afk)))  # Valmynd
-                    print("\t5: Einkunn læris" + (" " * (25 - len("5: Einkunn læris"))) + str(players[0].stokk()[0].property(prop.leg)))  # Valmynd
-                    print("\t6: Frjósemi" + (" " * (25 - len("6: Frjósemi"))) + str(players[0].stokk()[0].property(prop.frjo)))  # Valmynd
-                    print("\t7: Gerð/þykkt bakvöðva" + (" " * (25 - len("6: Gerð/þykkt bakvöðva"))) + str(players[0].stokk()[0].property(prop.bak)))  # Valmynd
-                    print("\t8: Einkunn fyrir malir" + (" " * (25 - len("7: Einkunn fyrir malir"))) + str(players[0].stokk()[0].property(prop.mal)))  # Valmynd
+                    print(players[int(turn)], "á að gera!\nSpilið sem þú drógst er:\n\t\t" + str(players[int(turn)].stokk()[0]))  # Valmynd
+                    print("\t1: Þyngd í kílóum" + (" " * (25 - len("1: Þyngd í kílóum"))) + str(players[int(turn)].stokk()[0].property(prop.kilo)))  # Valmynd
+                    print("\t2: Mjólkurlagni dætra" + (" " * (25 - len("2: Mjólkurlagni dætra"))) + str(players[int(turn)].stokk()[0].property(prop.mjolk)))  # Valmynd
+                    print("\t3: Einkunn ullar" + (" " * (25 - len("3: Einkunn ullar"))) + str(players[int(turn)].stokk()[0].property(prop.ull)))  # Valmynd
+                    print("\t4: Fjöldi afkvæma" + (" " * (25 - len("4: Fjöldi afkvæma"))) + str(players[int(turn)].stokk()[0].property(prop.afk)))  # Valmynd
+                    print("\t5: Einkunn læris" + (" " * (25 - len("5: Einkunn læris"))) + str(players[int(turn)].stokk()[0].property(prop.leg)))  # Valmynd
+                    print("\t6: Frjósemi" + (" " * (25 - len("6: Frjósemi"))) + str(players[0].stokk()[int(turn)].property(prop.frjo)))  # Valmynd
+                    print("\t7: Gerð/þykkt bakvöðva" + (" " * (25 - len("6: Gerð/þykkt bakvöðva"))) + str(players[int(turn)].stokk()[0].property(prop.bak)))  # Valmynd
+                    print("\t8: Einkunn fyrir malir" + (" " * (25 - len("7: Einkunn fyrir malir"))) + str(players[int(turn)].stokk()[0].property(prop.mal)))  # Valmynd
                     temp = input("Hverju villt þú keppa í?\n")  # Tekur inn valkost
                     while True:  # Meðan valkostur er rangur
                         try:  # Reyndu að stilla valkost
@@ -140,8 +145,9 @@ while val1 != "4":  # Meðan notandi vill ekki hætta
                             x.owner().jafn(True)  # Stillir jafnteflis eiginleika eignda besta spilsins
                             if len(best.owner().stokk()) == 0 or len(x.owner().stokk()) == 0:  # Ef það er jafntefli á síðasta spili í stokk
                                 while True:  # Meðan það er jafntefli í skæri blað steinn
+                                    print("Jafntefli á síðasta spili leikmans!\nÞarf að keppa í skæri blað steinn við hvort annað!")
                                     if best.owner().type() == playerType.user:  # Ef besta spilið er notandinn
-                                        temp = input("Jafntefli á síðasta spili leikmans!\nÞarf að keppa í skæri blað steinn við hvort annað!\n\t1: Steinn?\n\t2: Blað?\n\t3: Skæri?\n")  # Tekur inn valkost
+                                        temp = input("Veldu " + str(best.owner()) + "\n\t1: Steinn?\n\t2: Blað?\n\t3: Skæri?\n")  # Tekur inn valkost
                                         while True:  # Meðan valkostur er rangur
                                             try:  # Reyndu að stilla valkost
                                                 best.owner().RPS(RPS(int(temp) - 1))  # Reynir að stilla valkost
@@ -151,7 +157,7 @@ while val1 != "4":  # Meðan notandi vill ekki hætta
                                     else:  # Ef besta spilið er tölva
                                         best.owner().RPS(RPS(randint(0, 2)))  # Velur Skæri, blað eða stein að handahófi
                                     if x.owner().type() == playerType.user:  # Ef x spilið er notandinn
-                                        temp = input("Jafntefli á síðasta spili leikmans!\nÞarf að keppa í skæri blað steinn við hvort annað!\n\t1: Steinn?\n\t2: Blað?\n\t3: Skæri?\n")  # Tekur inn valkost
+                                        temp = input("Veldu " + str(best.owner()) + "\n\t1: Steinn?\n\t2: Blað?\n\t3: Skæri?\n")  # Tekur inn valkost
                                         while True:  # Meðan valkostur er rangur
                                             try:  # Reyndu að stilla valkost
                                                 x.owner().RPS(RPS(int(temp) - 1))  # Reynir að stilla valkost
@@ -194,9 +200,6 @@ while val1 != "4":  # Meðan notandi vill ekki hætta
                 toRemove = []  # Listi af leikmönnum sem á að eyða
                 for x, elem in enumerate(players):  # Allir leikmenn
                     if elem.lost():  # Ef leikmaður er búinn að tapa
-                        if elem.type() == playerType.user:  # Ef notandi tapaði
-                            lost = True  # Maður hefur tapað
-                            break  # Fara út úr for lykkjunni
                         toRemove.append(elem)  # Bæta leikmanni í eyðslulista
                 for x in toRemove:
                     if players.index(x) > turn:  # Endurstilling cNumsins
@@ -207,10 +210,6 @@ while val1 != "4":  # Meðan notandi vill ekki hætta
                     del players[players.index(x)]  # Eyða viðeygandi leikmanni frá leikmanna listanum
                     print(len(players), "leikmenn eftir")
                     input("\nÝttu á 'enter' til þess að halda áfram!\n")  # Býður til að byrja
-                if lost:
-                    print("Þú tapaðir!")
-                    input("\nÝttu á 'enter' til þess að halda áfram!\n")  # Býður til að byrja
-                    break
                 if len(players) == 1:  # Ef bara einn leikmaður er eftir (ef einhver er búinn að vinna)
                     print(players[0], "vann!")
                     input("\nÝttu á 'enter' til þess að halda áfram!\n")  # Býður til að byrja
